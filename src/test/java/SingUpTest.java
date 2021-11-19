@@ -9,12 +9,23 @@ import org.testng.annotations.Test;
 
 public class SingUpTest {
 
-    @Test
-    public void zipCodeShouldAccept5Digits() {
+    WebDriver driver;
+
+    @BeforeTest
+    public void launchBrowser() {
         // Открытие страницы https://www.sharelane.com/cgi-bin/register.py
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.get("https://www.sharelane.com/cgi-bin/register.py");
+    }
+
+    @AfterTest
+    public void closeBrowser() {
+        driver.quit();
+    }
+
+    @Test
+    public void zipCodeShouldAccept5Digits() {
         // Ввести 5 цифр
         WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
         zipCodeInput.sendKeys("12345");
@@ -30,10 +41,6 @@ public class SingUpTest {
 
     @Test
     public void zipCodeShouldAccept4Digits() {
-        // Открытие страницы https://www.sharelane.com/cgi-bin/register.py
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.sharelane.com/cgi-bin/register.py");
         // Ввести 4 цифры
         WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
         zipCodeInput.sendKeys("1234");
@@ -52,10 +59,6 @@ public class SingUpTest {
 
     @Test
     public void zipCodeShouldAccept6Digits() {
-        // Открытие страницы https://www.sharelane.com/cgi-bin/register.py
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.sharelane.com/cgi-bin/register.py");
         // Ввести 6 цифры
         WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
         zipCodeInput.sendKeys("123456");
@@ -75,23 +78,14 @@ public class SingUpTest {
 
     //Домашнее задание - тестирование формы Sign Up
 
-    WebDriver driver;
-
-    @BeforeTest
-    public void launchBrowser() {
-        // Открытие страницы "https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=12345"
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get("https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=12345");
-    }
-
-    @AfterTest
-    public void closeBrowser() {
-        driver.quit();
-    }
-
     @Test
     public void singUpRegisterValid() {
+        // В поле Zip code ввести 5 цифр
+        WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
+        zipCodeInput.sendKeys("12345");
+        // Нажимаем кнопку Continue
+        WebElement continueButton = driver.findElement(By.cssSelector("[value=Continue]"));
+        continueButton.click();
         // Заполняем поле First Name
         WebElement firstNameField = driver.findElement(By.name("first_name"));
         firstNameField.sendKeys("Elena");
@@ -116,6 +110,10 @@ public class SingUpTest {
 
     @Test
     public void allFieldsEmpty() {
+        WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
+        zipCodeInput.sendKeys("12345");
+        WebElement continueButton = driver.findElement(By.cssSelector("[value=Continue]"));
+        continueButton.click();
         WebElement firstNameField = driver.findElement(By.name("first_name"));
         firstNameField.sendKeys(" ");
         WebElement lastNameField = driver.findElement(By.name("last_name"));
@@ -135,6 +133,12 @@ public class SingUpTest {
 
     @Test
     public void firstNameFieldInValid() {
+        // В поле Zip code ввести 5 цифр
+        WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
+        zipCodeInput.sendKeys("12345");
+        // Нажимаем кнопку Continue
+        WebElement continueButton = driver.findElement(By.cssSelector("[value=Continue]"));
+        continueButton.click();
         // Вводим невалидное знанчение в поле First_name - "123@!"
         WebElement firstNameField = driver.findElement(By.name("first_name"));
         firstNameField.sendKeys("123@!");
@@ -155,6 +159,12 @@ public class SingUpTest {
 
     @Test
     public void passwordConfirmationInvalid() {
+        // В поле Zip code ввести 5 цифр
+        WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
+        zipCodeInput.sendKeys("12345");
+        // Нажимаем кнопку Continue
+        WebElement continueButton = driver.findElement(By.cssSelector("[value=Continue]"));
+        continueButton.click();
         WebElement firstNameField = driver.findElement(By.name("first_name"));
         firstNameField.sendKeys("Elena");
         WebElement lastNameField = driver.findElement(By.name("last_name"));
@@ -176,18 +186,36 @@ public class SingUpTest {
 
     @Test
     public void hidePassword1Valid() {
+        // В поле Zip code ввести 5 цифр
+        WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
+        zipCodeInput.sendKeys("12345");
+        // Нажимаем кнопку Continue
+        WebElement continueButton = driver.findElement(By.cssSelector("[value=Continue]"));
+        continueButton.click();
         WebElement passwordField = driver.findElement(By.name("password1"));
         Assert.assertEquals(passwordField.getAttribute("type"), "password", "This is a bug. The password is not hidden");
     }
 
     @Test
     public void hidePassword2Valid() {
+        // В поле Zip code ввести 5 цифр
+        WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
+        zipCodeInput.sendKeys("12345");
+        // Нажимаем кнопку Continue
+        WebElement continueButton = driver.findElement(By.cssSelector("[value=Continue]"));
+        continueButton.click();
         WebElement passwordField = driver.findElement(By.name("password2"));
         Assert.assertEquals(passwordField.getAttribute("type"), "password", "This is a bug. The password is not hidden");
     }
 
     @Test
     public void emailInvalid() {
+        // В поле Zip code ввести 5 цифр
+        WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
+        zipCodeInput.sendKeys("12345");
+        // Нажимаем кнопку Continue
+        WebElement continueButton = driver.findElement(By.cssSelector("[value=Continue]"));
+        continueButton.click();
         WebElement firstNameField = driver.findElement(By.name("first_name"));
         firstNameField.sendKeys("Elena");
         WebElement lastNameField = driver.findElement(By.name("last_name"));
